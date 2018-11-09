@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "push": "clasp push",
+    "pull": "clasp pull",
+    "watch": "clasp push --watch"
+  },
+  "devDependencies": {
+    "@google/clasp": "^1.6.3",
+    "@types/google-apps-script": "^0.0.31",
+    "tslint": "^5.11.0"
+  }
+}
