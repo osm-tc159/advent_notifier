@@ -1,13 +1,9 @@
-import { IPost } from "../Api/AdventCalendar";
-import { IPayloadTemplate } from "./PayloadTemplate";
+import { IPostCollectionReportTemplate, PostCollection } from "../Post/PostCollection";
 
-export class PostExistsTemplate implements IPayloadTemplate {
-  public fillOut(posts: IPost[]) {
-    const authors = posts
-      .map((p) => p.author)
-      .reduce((acc: string[], item) => {
-        return (acc.indexOf(item) !== -1) ? acc : [...acc, item];
-      }, []);
+export class PostExistsTemplate implements IPostCollectionReportTemplate {
+  public fillOut(posts: PostCollection) {
+    const validPosts = posts.onlyValid();
+    const authors = validPosts.authors();
 
     return {
       content: "",
@@ -18,7 +14,7 @@ export class PostExistsTemplate implements IPayloadTemplate {
             {
               inline: true,
               name: ":page_facing_up: 今週分の記事数",
-              value: `${posts.length}`,
+              value: `${validPosts.length}`,
             },
           ],
           footer: {

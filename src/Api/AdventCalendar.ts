@@ -1,10 +1,5 @@
-export interface IPost {
-  author: string;
-  date: string;
-  day: number;
-  title: string;
-  url: string;
-}
+import { IPost } from "../Domain/Post/Post";
+import { PostCollection } from "../Domain/Post/PostCollection";
 
 export interface IGetUnreadPostsApiResponse {
   posts: IPost[];
@@ -21,12 +16,12 @@ export class AdventCalendar {
     }
   }
 
-  public getUnreadPosts(): IPost[] {
+  public getUnreadPosts() {
     const responseAsString = UrlFetchApp
       .fetch(this.baseUrl)
       .getContentText();
     const response = JSON.parse(responseAsString) as IGetUnreadPostsApiResponse;
 
-    return response.posts;
+    return new PostCollection(response.posts);
   }
 }
